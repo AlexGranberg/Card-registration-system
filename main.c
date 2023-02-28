@@ -13,6 +13,7 @@ system("cls");
 
 while(1){
     int sel = choice();
+    if(sel == 4) break;
 }
 
 
