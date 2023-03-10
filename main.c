@@ -4,17 +4,26 @@
 #include <ctype.h>
 #include "SafeInput.h"
 #include <stdbool.h>
-#include "menu.h"
+#include "functions.h"
 
 
-void main(){
+
+
+int main(){
 
 system("cls");
 
+State state = {NULL,0};
+
 while(1){
     int sel = choice();
+    if(sel == 1) remoteOpenDoor();
+    if(sel == 2) listCards(&state);
+    if(sel == 3) createCard(&state);
     if(sel == 4) break;
 }
+
+return 0;
 
 
 }

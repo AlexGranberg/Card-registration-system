@@ -1,8 +1,8 @@
 PROG=admindoor.exe
 CC=gcc
-CFLAGS=-g -Wall
+CFLAGS=-g -Wall -Werror
 DEPS = SafeInput.h
-OBJ = menu.o main.o SafeInput.o 
+OBJ = functions.o main.o SafeInput.o 
  
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
