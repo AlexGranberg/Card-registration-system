@@ -22,6 +22,8 @@ void addRemoveAccess(Card *cards, Card *number);
 void printCards(const Card *p);
 void createCard(State *state);
 void inputCard(Card *p);
+void cardInSystem(const Card *p, const State *state);
+
 
 void red(); 
 void green();

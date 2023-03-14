@@ -8,7 +8,7 @@
 
 int choice(){
 while(1){
-    printf("\n\nAdmin menu\n");
+    printf("\nAdmin menu\n");
     printf("1. Remote open door\n");
     printf("2. List add cards in system\n");
     printf("3. Add remove access\n");
@@ -88,25 +88,46 @@ void printCards(const Card *p){
     printf("\n");
     char *access;
     if(p->access == 1){
-    
-    access = "Access";
-    
-    printf("Card: %s", p->number);
-    green();
-    printf(" %s", access);
-    reset();
-    printf(" %s", p->buffer);
-    }
+        
+        access = "Access";
+        
+        printf("Card: %s", p->number);
+        green();
+        printf(" %s", access);
+        reset();
+        printf("  Added to system: %s", p->buffer);
+        }
     else{
         
-    access = "No access";
-    printf("Card: %s", p->number);
-    red();
-    printf(" %s", access);
-    reset();
-    printf(" %s", p->buffer);
+        access = "No access";
+        printf("Card: %s", p->number);
+        red();
+        printf(" %s", access);
+        reset();
+        printf(" Added to system: %s", p->buffer);
     } 
     
+
+}
+
+
+void cardInSystem(const Card *p, const State *state){
+    char input[10];
+    bool found = false;
+    GetInput("Enter card number: ", input, 10);
+
+    for(int i = 0; i < state->antal; i++){
+        if(strcmp(input, state->cards[i].number) == 0 ){
+        found = true;
+        break;
+        }
+        
+    }
+    if(found)
+        printf("Card is in system");
+    else{
+        printf("Nope");
+        }
 
 }
 
