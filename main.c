@@ -20,9 +20,12 @@ while(1){
     int sel = choice();
     if(sel == 1) remoteOpenDoor();
     if(sel == 2) listCards(&state);
-    if(sel == 3) createCard(&state);
+    if(sel == 3) cardInSystem(&card, &state);
     if(sel == 4) break;
     if(sel == 5) cardInSystem(&card, &state);
+    // else{
+    //     printf("Not a valid entry!");
+    // }
 }
 
 return 0;

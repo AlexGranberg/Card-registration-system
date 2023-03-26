@@ -4,6 +4,7 @@
 #include "functions.h"
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 
 
 int choice(){
@@ -17,6 +18,9 @@ while(1){
 
     int sel;
     if(GetInputInt("Select choice: ", &sel)) return sel;
+    else{
+        printf("Not a valid entry!");
+    }
 }
 }
 
@@ -48,28 +52,43 @@ void addRemoveAccess(Card *cards, Card *number){
 
     }
 
-void createCard(State *state){
+void createCard(State *state, const char *number) {
+    char answer[10];
     state->antal++;
     if(state->antal == 1)
         state->cards = (Card *)malloc(1 * sizeof(Card));
     else
         state->cards = (Card *)realloc(state->cards, state->antal * sizeof(Card));
-    inputCard(&state->cards[state->antal-1]);
-
-    
+    GetInput("Do you want to give access to this card? Y/N", answer, 10);
+    bool access = (strcmp(answer, "Y") == 0 || strcmp(answer, "y") == 0);
+    inputCard(&state->cards[state->antal-1], number, access);
 }
 
-void inputCard(Card *p){
-    char answer[10];
-    GetInput("Enter card number: ", p->number, 10);
-    GetInput("Do you want to give access to this card? Y/N", answer, 10);
-        if(strcmp(answer, "Y") == 0)
-            p->access = 1;
-        else if(strcmp(answer, "N") == 0)
-            p->access = 0;
-        else{
-            p->access = 0;
-        }
+// void createCard(State *state, Card *card){
+//     state->antal++;
+//     if(state->antal == 1)
+//         state->cards = (Card *)malloc(1 * sizeof(Card));
+//     else
+//         state->cards = (Card *)realloc(state->cards, state->antal * sizeof(Card));
+//     inputCard(&state->cards[state->antal-1]);
+
+    
+// }
+
+void inputCard(Card *p, const char *number, bool access){
+    strcpy(p->number, number);
+    p->access = access;
+    // char answer[10];
+    // GetInput("Enter card number: ", p->number, 10);
+    // GetInput("Do you want to give access to this card? Y/N", answer, 10);
+        
+    //     if(strcmp(answer, "Y") == 0 || strcmp(answer, "y") == 0)
+    //         p->access = 1;
+    //     else if(strcmp(answer, "N") == 0 || strcmp(answer, "n") == 0)
+    //         p->access = 0;
+    //     else{
+    //         p->access = 0;
+    //     }
     time_t rawtime;
     struct tm *info;
 
@@ -77,7 +96,7 @@ void inputCard(Card *p){
 
     info = localtime( &rawtime );
 
-    strftime(p->buffer,100,"%x-%I:%M%p", info);
+    strftime(p->buffer, sizeof(p->buffer),"%x-%I:%M%p", info);
     
 
     
@@ -91,27 +110,27 @@ void printCards(const Card *p){
         
         access = "Access";
         
-        printf("Card: %s", p->number);
+        printf("Card %s :", p->number);
         green();
         printf(" %s", access);
         reset();
-        printf("  Added to system: %s", p->buffer);
+        printf(" : Added to system %s", p->buffer);
         }
     else{
         
         access = "No access";
-        printf("Card: %s", p->number);
+        printf("Card %s :", p->number);
         red();
         printf(" %s", access);
         reset();
-        printf(" Added to system: %s", p->buffer);
+        printf(" : Added to system %s", p->buffer);
     } 
     
 
 }
 
 
-void cardInSystem(const Card *p, const State *state){
+void cardInSystem(Card *p, State *state){
     char input[10];
     bool found = false;
     GetInput("Enter card number: ", input, 10);
@@ -119,15 +138,36 @@ void cardInSystem(const Card *p, const State *state){
     for(int i = 0; i < state->antal; i++){
         if(strcmp(input, state->cards[i].number) == 0 ){
         found = true;
+        p = &state->cards[i];
         break;
         }
         
     }
-    if(found)
-        printf("Card is in system");
-    else{
-        printf("Nope");
+    if(found){
+        char answer[10];
+        GetInput("Card is in system, do you want to add or remove access? Y/N", answer, 10);
+        if(strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0){
+            if(p->access == true){
+            p->access = false;
+            printf("Access has been updated.\n");
+            }
+            else{
+            p->access = true;
+            }
         }
+        
+
+        }
+    else{
+        char answer[10];
+        GetInput("Card is not in system, do you want to add it? Y/N", answer, 10);
+        if(strcmp(answer, "y") == 0 || strcmp(answer, "Y") == 0){
+            Card newCard;
+            strcpy(newCard.number, input);
+            inputCard(&newCard, input, p->access);
+            createCard(state, input);
+            }
+    }
 
 }
 
