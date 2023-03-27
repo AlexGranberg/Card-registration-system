@@ -35,22 +35,8 @@ void listCards(const State *state){
     for(int i = 0; i < state->antal; i++){
         
         printCards(&state->cards[i]);
-        // Card *p = state->cards;
-        // Card *toPrint = &p[i];
-        // printCards(toPrint);
-
     }
 }
-
-void addRemoveAccess(Card *cards, Card *number){
-
-    // char answer[10];
-    // GetInput("Enter card number: ", number, 10);
-    // GetInput("Do you want to give access to this card? Y/N", answer, 10);
-    //     if(strcmp(choice, "Y" || "y") == 1)
-    //         cards->access == 1;
-
-    }
 
 void createCard(State *state, const char *number) {
     char answer[10];
@@ -64,31 +50,11 @@ void createCard(State *state, const char *number) {
     inputCard(&state->cards[state->antal-1], number, access);
 }
 
-// void createCard(State *state, Card *card){
-//     state->antal++;
-//     if(state->antal == 1)
-//         state->cards = (Card *)malloc(1 * sizeof(Card));
-//     else
-//         state->cards = (Card *)realloc(state->cards, state->antal * sizeof(Card));
-//     inputCard(&state->cards[state->antal-1]);
-
-    
-// }
 
 void inputCard(Card *p, const char *number, bool access){
     strcpy(p->number, number);
     p->access = access;
-    // char answer[10];
-    // GetInput("Enter card number: ", p->number, 10);
-    // GetInput("Do you want to give access to this card? Y/N", answer, 10);
-        
-    //     if(strcmp(answer, "Y") == 0 || strcmp(answer, "y") == 0)
-    //         p->access = 1;
-    //     else if(strcmp(answer, "N") == 0 || strcmp(answer, "n") == 0)
-    //         p->access = 0;
-    //     else{
-    //         p->access = 0;
-    //     }
+    
     time_t rawtime;
     struct tm *info;
 
