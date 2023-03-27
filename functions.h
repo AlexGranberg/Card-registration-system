@@ -26,6 +26,7 @@ void createCard(State *state, const char *number);
 
 void inputCard(Card *p, const char *number, bool access);
 void cardInSystem(Card *p, State *state);
+void fakeCardTest(Card *p, State *state);
 
 
 void red(); 

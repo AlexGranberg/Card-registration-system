@@ -23,6 +23,7 @@ while(1){
     if(sel == 3) cardInSystem(&card, &state);
     if(sel == 4) break;
     if(sel == 5) cardInSystem(&card, &state);
+    if(sel == 9) fakeCardTest(&card, &state);
     // else{
     //     printf("Not a valid entry!");
     // }

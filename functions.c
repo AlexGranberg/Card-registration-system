@@ -171,6 +171,37 @@ void cardInSystem(Card *p, State *state){
 
 }
 
+
+void fakeCardTest(Card *p, State *state){
+    char input[10];
+    bool found = false;
+    GetInput("Please scan card to enter or \"x\" to go back to admin: ", input, 10);
+    while(input[0] != 'x'){
+    for(int i = 0; i < state->antal; i++){
+        if(strcmp(input, state->cards[i].number) == 0 ){
+        found = true;
+        p = &state->cards[i];
+        break;
+        }
+        
+    }
+    if(found){
+        if(p->access == true){
+            printf("\nCURRENTLY LAMP IS: GREEN\n\n");
+            sleep(3);
+        }
+        else{
+            printf("\nCURRENTLY LAMP IS: RED\n\n");
+        }
+    }
+    else
+    {
+        printf("Card is not in system.\n");
+    }
+    GetInput("Please scan card to enter or \"x\" to go back to admin: ", input, 10);
+}
+}
+
 void red () {
   printf("\033[1;31m");
 }
