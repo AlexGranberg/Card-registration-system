@@ -200,6 +200,7 @@ void fakeCardTest(Card *p, State *state){
     {
         printf("Card is not in system.\n");
     }
+    found = false;
     GetInput("Please scan card to enter or \"x\" to go back to admin: ", input, 10);
     
 }
