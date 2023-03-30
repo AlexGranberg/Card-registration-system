@@ -21,7 +21,7 @@ void listCards(const State *state){
 }
 
 
-    void createCard(State *state, const char *number, bool access) {
+void createCard(State *state, const char *number, bool access) {
     state->antal++;
     if(state->antal == 1)
         state->cards = (Card *)malloc(1 * sizeof(Card));
@@ -31,7 +31,6 @@ void listCards(const State *state){
     state->cards[state->antal-1].access = access;
     
 }
-
 
 void inputCard(Card *p, const char *number, bool access){
     strcpy(p->number, number);
@@ -47,7 +46,7 @@ void inputCard(Card *p, const char *number, bool access){
     strftime(p->buffer, sizeof(p->buffer),"%x-%I:%M%p", info);
     
 }
-    
+  
 
 void printCards(const Card *p){
     printf("\n");
