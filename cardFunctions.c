@@ -43,7 +43,7 @@ void inputCard(Card *p, const char *number, bool access){
 
     info = localtime( &rawtime );
 
-    strftime(p->buffer, sizeof(p->buffer),"%x-%I:%M%p", info);
+    strftime(p->buffer, sizeof(p->buffer), "%Y-%m-%d %H:%M", info);
     
 }
   
